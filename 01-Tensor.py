@@ -212,8 +212,8 @@ if flag:
 # ========================= 张量的数学运算 ================================
 # 使用torch.squeeze
 # 若为None，移除所有长度为1的轴；若指定维度，当且仅当该轴长度为
-flag = True
-# flag = False
+# flag = True
+flag = False
 if flag:
     t_0 = torch.randn((3, 3))
     t_1 = torch.ones_like(t_0)
