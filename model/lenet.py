@@ -31,7 +31,7 @@ class LeNet(nn.Module):
         out = self.fc3(out)
         return out
 
-    def intialize_weights(self):
+    def initialize_weights(self):
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
                 nn.init.xavier_normal_(m.weight.data)
