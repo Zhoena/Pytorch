@@ -12,11 +12,12 @@ random.seed(1)
 object_label = {"brain": 0, "chair": 1}
 
 
+# 数据集都继承自Dataset
 class ObjectDataset(Dataset):
     def __init__(self, data_dir, transform=None):
         """
         object分类任务的Dataset
-        :param data_dir: str, 数据及所在路径
+        :param data_dir: str, 数据集所在路径
         :param transform: torch.transform, 数据预处理
         """
         self.label_name = {"brain": 0, "chair": 1}
