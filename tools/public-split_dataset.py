@@ -21,8 +21,8 @@ if __name__ == '__main__':
     random.seed(1)
 
     # os.path.join路径拼接
-    dataset_dir = os.path.join("data", "object_orign")
-    split_dir = os.path.join("data", "object_split")
+    dataset_dir = os.path.join("..", "data", "object_orign")
+    split_dir = os.path.join("..", "data", "object_split")
     train_dir = os.path.join(split_dir, "train")
     valid_dir = os.path.join(split_dir, "valid")
     test_dir = os.path.join(split_dir, "test")
