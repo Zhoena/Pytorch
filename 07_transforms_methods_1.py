@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 # @brief    :transforms方法
+             transforms方法部分已注释，使用时取消注释
 """
 
 import os
@@ -26,7 +27,7 @@ set_seed(1)  # 设置随机种子
 
 # 参数设置
 MAX_EPOCH = 10
-BATCH_SIZE = 12
+BATCH_SIZE = 1
 LR = 0.01
 log_interval = 10
 val_interval = 1
@@ -52,7 +53,7 @@ def transform_invert(img_, transform_train):
     img_ = img_.transpose(0, 2).transpose(0, 1)  # C*H*W -> H*W*C
     img_ = np.array(img_)*255  # 0-1 转换到 0-255
 
-    # 根据3通道、1通道，将nampy.array的形式转换为PIL image
+    # 根据3通道、1通道，将numpy.array的形式转换为PIL image
     if img_.shape[2] == 3:
         img_ = Image.fromarray(img_.astype('uint8')).convert('RGB')
     elif img_.shape[2] == 1:
@@ -65,7 +66,6 @@ def transform_invert(img_, transform_train):
 
 # ====================== step 1/5 数据 ======================
 split_dir = os.path.join("data", "object_split")
-# train_dir = os.path.join("..")
 train_dir = os.path.join(split_dir, "train")
 # valid_dir = os.path.join(split_dir, "valid")
 
@@ -89,10 +89,11 @@ train_transform = transforms.Compose([
     # transforms.RandomCrop(1024, padding=1024, padding_mode='symmetric'),
 
     # 3 RandomResizedCrop
-    transforms.RandomResizedCrop(size=224, scale=(0.5, 0.5)),
+    # transforms.RandomResizedCrop(size=224, scale=(0.5, 0.5)),
 
     # 4 FiveCrop
-    # transforms.FiveCrop(112),
+    # transforms.FiveCrop(112),  # 此时返回tuple,不行，以下将tuple转化为tensor
+    # 得到一个长度为5的list， 再进行stack，可以拼接为一个tensor
     # transforms.Lambda(lambda crops: torch.stack([(transforms.ToTensor()(crop)) for crop in crops])),
 
     # 5 TenCrop
@@ -145,6 +146,15 @@ for epoch in range(MAX_EPOCH):
         plt.show()
         plt.pause(0.5)
         plt.close()
+
+        # bs, ncrops, c, h, w = inputs.shape
+        # for n in range(ncrops):
+        #     img_tensor = inputs[0, n, ...]  # C H W
+        #     img = transform_invert(img_tensor, train_transform)
+        #     plt.imshow(img)
+        #     plt.show()
+        #     plt.pause(1)
+
         break
     break
 
