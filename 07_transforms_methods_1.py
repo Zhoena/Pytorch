@@ -91,12 +91,12 @@ train_transform = transforms.Compose([
     # 3 RandomResizedCrop
     # transforms.RandomResizedCrop(size=224, scale=(0.5, 0.5)),
 
-    # 4 FiveCrop
+    # 4 FiveCrop - 使用时将下面的totensor、normalize都注释掉 for循环里用下面的代码
     # transforms.FiveCrop(112),  # 此时返回tuple,不行，以下将tuple转化为tensor
     # 得到一个长度为5的list， 再进行stack，可以拼接为一个tensor
     # transforms.Lambda(lambda crops: torch.stack([(transforms.ToTensor()(crop)) for crop in crops])),
 
-    # 5 TenCrop
+    # 5 TenCrop - 使用时将下面的totensor、normalize都注释掉 for循环里用下面的代码
     # transforms.TenCrop(112, vertical_flip=False),
     # transforms.Lambda(lambda crops: torch.stack([(transforms.ToTensor()(crop)) for crop in crops])),
 
