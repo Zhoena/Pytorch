@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 """
-# @brief        :通用函数
+# @date       : 2020-04-01 10:30
+# @brief      : 通用函数
 """
 
 import numpy as np
 import torch
 import torchvision.transforms as transforms
 from PIL import Image
+import random
 
 
 def transform_invert(img_, transform_train):
@@ -29,7 +31,7 @@ def transform_invert(img_, transform_train):
     img_ = img_.transpose(0, 2).transpose(0, 1)  # C*H*W -> H*W*C
 
     if 'ToTensor' in str(transform_train):
-        img_ = np.array(img_)*255  # 0-1 转换到 0-255
+        img_ = img_.detach().numpy() * 255  # 0-1 转换到 0-255
 
     # 根据3通道、1通道，将numpy.array的形式转换为PIL image
     if img_.shape[2] == 3:
@@ -40,3 +42,10 @@ def transform_invert(img_, transform_train):
         raise Exception("Invalid img shape, expected 1 or 3 in axis 2, but got {}!".format(img_.shape[2]))
 
     return img_
+
+
+def set_seed(seed=1):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
