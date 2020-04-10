@@ -22,18 +22,18 @@ if flag:
 
     writer = SummaryWriter(comment="test_your_comment", filename_suffix="_test_your_filename_suffix")
 
-    alexnet = models.alexnet(pretrained=True)
+    alexnet = models.alexnet(pretrained=True)  # 获取预训练的alexnet，参数在imagenet上训练过的
 
-    kernel_num = -1
-    vis_max = 1
+    kernel_num = -1  # 当前第几个卷积层
+    vis_max = 1  # 最大可视化层
 
-    for sub_module in alexnet.modules():
+    for sub_module in alexnet.modules():  # 每个模型都有modules，它可以递归地返回子modules
         if isinstance(sub_module, nn.Conv2d):
             kernel_num += 1
             if kernel_num > vis_max:
                 break
             kernels = sub_module.weight
-            c_out, c_int, k_w, k_h = tuple(kernels.shape)
+            c_out, c_int, k_w, k_h = tuple(kernels.shape)  # 4D
 
             for o_idx in range(c_out):
                 kernel_idx = kernels[o_idx, :, :, :].unsqueeze(1)  # make_grid需要 BCHW，这里拓展C维度
@@ -49,14 +49,14 @@ if flag:
         writer.close()
 
 
-# ---------------- kernel visualization -----------------
+# ---------------- feature map visualization -----------------
 # flag = 0
 flag = 1
 if flag:
     writer = SummaryWriter(comment='test_your_comment', filename_suffix="_test_your_filename_suffix")
 
     # 数据
-    path_img = "./lena.png"  # your path to image
+    path_img = "./lena.png"
     normMean = [0.49139968, 0.48215827, 0.44653124]
     normStd = [0.24703233, 0.24348505, 0.26158768]
 
