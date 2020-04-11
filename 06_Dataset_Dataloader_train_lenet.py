@@ -32,7 +32,7 @@ object_label = {"brain": 0, "chair": 1}
 MAX_EPOCH = 10
 BATCH_SIZE = 12
 LR = 0.01
-log_interval = 10
+log_interval = 8
 val_interval = 1
 
 # ====================== step 1/5 数据 ======================
