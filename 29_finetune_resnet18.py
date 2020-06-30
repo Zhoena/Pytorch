@@ -101,7 +101,7 @@ criterion = nn.CrossEntropyLoss()
 flag = 1
 if flag:
     fc_params_id = list(map(id, resnet18_ft.fc.parameters()))  # 返回的是parameters的内存地址
-    base_params = filter(lambda p: id(p) not in fc_params_id, resnet18_ft.parameters())
+    base_params = filter(lambda p: id(p) not in fc_params_id, resnet18_ft.parameters())  # 不属于fc层保留下来，即过滤掉fc层
     optimizer = optim.SGD([
         {'params': base_params, 'lr': LR*0},  # 0  0.1
         {'params': resnet18_ft.fc.parameters(), 'lr': LR}
